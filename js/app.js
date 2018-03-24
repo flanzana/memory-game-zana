@@ -1,7 +1,17 @@
 /*
  * Create a list that holds all of your cards
- */
 
+const cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", 
+"fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", 
+"fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+*/
+
+let cardsList = [];
+const deck = document.querySelector(".deck");
+const card = document.querySelectorAll(".card");
+
+let cardPick1 = "";
+let cardPick2 = "";
 
 /*
  * Display the cards on the page
@@ -24,7 +34,17 @@ function shuffle(array) {
 
     return array;
 }
+//shuffle(cards);
 
+// Timer from https://stackoverflow.com/questions/5517597
+function timer() {
+	var sec = 0;
+	function pad ( val ) { return val > 9 ? val : "0" + val; }
+	setInterval( function(){
+		document.getElementById("seconds").innerHTML=pad(++sec%60);
+		document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+	}, 1000);
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +56,10 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+//Open card by click and show symbol
+deck.addEventListener("click", function openCard(e) {
+	e.target.className += " open show";
+});
+
+
