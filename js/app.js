@@ -1,17 +1,6 @@
-/*
- * Create a list that holds all of your cards
+// Create a list that holds all of your cards
 
-const cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", 
-"fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", 
-"fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
-*/
-
-let cardsList = [];
-const deck = document.querySelector(".deck");
-const card = document.querySelectorAll(".card");
-
-let cardPick1 = "";
-let cardPick2 = "";
+const cardsList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 
 /*
  * Display the cards on the page
@@ -19,6 +8,15 @@ let cardPick2 = "";
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+// inside deck is 16x <li class="card"><i class="fa fa-xxxxxx"></i></li>
+
+function displayCards() {
+    let cards = shuffle(cardsList);
+    cardsList.forEach(function(card) {
+        $(".deck").append(`<li class="card"><i class="fa ${card}"></i></li>`)
+    });
+}
+displayCards();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -34,7 +32,6 @@ function shuffle(array) {
 
     return array;
 }
-//shuffle(cards);
 
 // Timer from https://stackoverflow.com/questions/5517597
 function timer() {
@@ -57,9 +54,37 @@ function timer() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-//Open card by click and show symbol
-deck.addEventListener("click", function openCard(e) {
-	e.target.className += " open show";
+const deck = document.querySelector(".deck");
+//const card = document.querySelectorAll(".card");
+
+let openCards = [];
+// set up the event listener for a card. If a card is clicked:
+deck.addEventListener("click", function(e) {
+    // display the card's symbol
+	e.target.classList.add("show", "open");
+
+    // add the card to a *list* of "open" cards
+    openCards.push(e.target);
+
+    let cardPick1 = openCards[0];
+    let cardPick2 = openCards[1];
+
+    console.log(openCards);
+
+    //  if the list already has another card, check to see if the two cards match
+    if (openCards.length === 2) {
+        // if the cards do match, lock the cards in the open position
+        if (cardPick1.className === cardPick2.className) {
+            cardPick1.classList.add("match");
+            cardPick2.classList.add("match");
+            cardPick1.classList.remove("show", "open");
+            cardPick2.classList.remove("show", "open");
+            openedCards = [];
+        } else {
+        // if the cards do not match, remove the cards from the list and hide the card's symbol
+            cardPick1.classList.remove("show", "open");
+            cardPick2.classList.remove("show", "open");
+            openedCards = [];
+        }
+    }
 });
-
-
