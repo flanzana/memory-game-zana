@@ -1,6 +1,8 @@
 // Create a list that holds all of your cards
+const cardsList = ["diamond", "heart", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb", "diamond", "heart", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb"];
 
-const cardsList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+const deck = document.querySelector(".deck");
+//const card = document.querySelectorAll(".card");
 
 /*
  * Display the cards on the page
@@ -12,11 +14,12 @@ const cardsList = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa
 
 function displayCards() {
     let cards = shuffle(cardsList);
-    cardsList.forEach(function(card) {
-        $(".deck").append(`<li class="card"><i class="fa ${card}"></i></li>`)
+    cards.forEach(function(card) {
+        $(deck).append(`<li class="card"><i class="fa fa-${card}"></i></li>`)
     });
 }
 displayCards();
+console.log(cardsList);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -54,9 +57,6 @@ function timer() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-const deck = document.querySelector(".deck");
-//const card = document.querySelectorAll(".card");
-
 let openCards = [];
 // set up the event listener for a card. If a card is clicked:
 deck.addEventListener("click", function(e) {
@@ -67,14 +67,16 @@ deck.addEventListener("click", function(e) {
     openCards.push(e.target);
 
     let cardPick1 = openCards[0];
+    //console.log(cardPick1);
     let cardPick2 = openCards[1];
+    //console.log(cardPick2);
 
     console.log(openCards);
 
     //  if the list already has another card, check to see if the two cards match
     if (openCards.length === 2) {
         // if the cards do match, lock the cards in the open position
-        if (cardPick1.className === cardPick2.className) {
+        if (cardPick1.innerHTML === cardPick2.innerHTML) {
             cardPick1.classList.add("match");
             cardPick2.classList.add("match");
             cardPick1.classList.remove("show", "open");
