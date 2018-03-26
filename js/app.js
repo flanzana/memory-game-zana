@@ -45,6 +45,7 @@ function timer() {
 		document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
 	}, 1000);
 }
+//timer();
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -58,6 +59,16 @@ function timer() {
  */
 
 let openCards = [];
+let matchCards = [];
+let moves = 0;
+
+/*const stars = document.querySelector(".stars");
+let starsList = [] {
+    for (i = 0; i < s; i++) {
+        $(stars).append(`<li><i class="fa fa-star"></i></li>`)
+    }
+}*/
+
 // set up the event listener for a card. If a card is clicked:
 deck.addEventListener("click", function(e) {
     // display the card's symbol
@@ -65,13 +76,10 @@ deck.addEventListener("click", function(e) {
 
     // add the card to a *list* of "open" cards
     openCards.push(e.target);
-
     let cardPick1 = openCards[0];
-    //console.log(cardPick1);
     let cardPick2 = openCards[1];
-    //console.log(cardPick2);
-
-    console.log(openCards);
+    //console.log("Picked cards:");
+    //console.log(openCards);
 
     //  if the list already has another card, check to see if the two cards match
     if (openCards.length === 2) {
@@ -81,12 +89,41 @@ deck.addEventListener("click", function(e) {
             cardPick2.classList.add("match");
             cardPick1.classList.remove("show", "open");
             cardPick2.classList.remove("show", "open");
-            openedCards = [];
+            matchCards.push(cardPick1);
+            matchCards.push(cardPick2);
+            openCards = [];
+            
         } else {
         // if the cards do not match, remove the cards from the list and hide the card's symbol
-            cardPick1.classList.remove("show", "open");
+            setTimeout( function() {cardPick1.classList.remove("show", "open");
             cardPick2.classList.remove("show", "open");
-            openedCards = [];
+            openCards = [];}, 500);
         }
+
+        // counting moves
+        moves++;
+        document.getElementById("moves").innerHTML = moves;
     }
+    console.log("Matched cards:");
+    console.log(matchCards);
+
+    // star rating: 3 stars = up to 14 moves, 2 star = between 15-19 moves, 1 star = 20-24 start, 0 star = more than 25 moves
+    /*if (moves == 0) {
+        starRating.length = 3;
+    } else if (moves == 5) {
+        // remove 1 star
+        starRating(2);
+    } else if (moves == 7) {
+        // remove one more star
+        starRating(1);
+    } else if (moves == 9) {
+        // 0 stars
+        starRating(0);
+    }*/
+});
+
+// restaut button
+const restartButton = document.querySelector("#restart");
+restartButton.addEventListener("click", function(re) {
+    document.location.reload();
 });
