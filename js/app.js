@@ -2,7 +2,7 @@
 const cardsList = ["diamond", "heart", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb", "diamond", "heart", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb"];
 
 const deck = document.querySelector(".deck");
-//const card = document.querySelectorAll(".card");
+//const card = document.querySelector(".card");
 
 /*
  * Display the cards on the page
@@ -62,13 +62,6 @@ let openCards = [];
 let matchCards = [];
 let moves = 0;
 
-/*const stars = document.querySelector(".stars");
-let starsList = [] {
-    for (i = 0; i < s; i++) {
-        $(stars).append(`<li><i class="fa fa-star"></i></li>`)
-    }
-}*/
-
 // set up the event listener for a card. If a card is clicked:
 deck.addEventListener("click", function(e) {
     // display the card's symbol
@@ -78,8 +71,6 @@ deck.addEventListener("click", function(e) {
     openCards.push(e.target);
     let cardPick1 = openCards[0];
     let cardPick2 = openCards[1];
-    //console.log("Picked cards:");
-    //console.log(openCards);
 
     //  if the list already has another card, check to see if the two cards match
     if (openCards.length === 2) {
@@ -99,30 +90,34 @@ deck.addEventListener("click", function(e) {
             cardPick2.classList.remove("show", "open");
             openCards = [];}, 500);
         }
-
-        // counting moves
+        // counting moves and display on screen
         moves++;
-        document.getElementById("moves").innerHTML = moves;
+        document.getElementById("moves").innerHTML = moves; 
     }
-    console.log("Matched cards:");
-    console.log(matchCards);
 
-    // star rating: 3 stars = up to 14 moves, 2 star = between 15-19 moves, 1 star = 20-24 start, 0 star = more than 25 moves
-    /*if (moves == 0) {
-        starRating.length = 3;
-    } else if (moves == 5) {
-        // remove 1 star
-        starRating(2);
-    } else if (moves == 7) {
-        // remove one more star
-        starRating(1);
-    } else if (moves == 9) {
-        // 0 stars
-        starRating(0);
-    }*/
+    // function star rating: removing stars
+    removeStar();
 });
 
-// restaut button
+// star rating
+function removeStar() {
+    if (moves == 14) {
+        // remove 1 star
+        document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
+    } else if (moves == 19) {
+        // remove one more star
+        document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
+    } else if (moves == 24) {
+       // 0 stars
+       document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
+    }
+}
+
+// if all cards have matched, display a message with the final score and stop timer
+//when matchCard.length = 16 --> end of game + stop timer + show pop-up message
+// in progress....
+
+// restart button
 const restartButton = document.querySelector("#restart");
 restartButton.addEventListener("click", function(re) {
     document.location.reload();
