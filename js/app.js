@@ -45,7 +45,6 @@ function timer() {
 		document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
 	}, 1000);
 }
-//timer();
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -61,9 +60,13 @@ function timer() {
 let openCards = [];
 let matchCards = [];
 let moves = 0;
+let timerNotRunning =  true;
 
 // set up the event listener for a card. If a card is clicked:
 deck.addEventListener("click", function(e) {
+    // start timer on first click
+    startTimer();
+
     // display the card's symbol
 	e.target.classList.add("show", "open");
 
@@ -98,6 +101,14 @@ deck.addEventListener("click", function(e) {
     // function star rating: removing stars
     removeStar();
 });
+
+//start timer
+function startTimer() {
+    if (timerNotRunning === true) {
+        timer();
+        timerNotRunning = false;
+    }
+}
 
 // star rating
 function removeStar() {
