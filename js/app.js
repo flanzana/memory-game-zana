@@ -68,7 +68,7 @@ deck.addEventListener("click", function(e) {
     startTimer();
 
     // display the card's symbol
-	e.target.classList.add("show", "open");
+	e.target.classList.add("open");
 
     // add the card to a *list* of "open" cards
     openCards.push(e.target);
@@ -81,18 +81,20 @@ deck.addEventListener("click", function(e) {
         if (cardPick1.innerHTML === cardPick2.innerHTML) {
             cardPick1.classList.add("match");
             cardPick2.classList.add("match");
-            cardPick1.classList.remove("show", "open");
-            cardPick2.classList.remove("show", "open");
+            cardPick1.classList.remove("open");
+            cardPick2.classList.remove("open");
             matchCards.push(cardPick1);
             matchCards.push(cardPick2);
             openCards = [];
-            
         } else {
         // if the cards do not match, remove the cards from the list and hide the card's symbol
-            setTimeout( function() {cardPick1.classList.remove("show", "open");
-            cardPick2.classList.remove("show", "open");
-            openCards = [];}, 500);
+            setTimeout( function() {
+                cardPick1.classList.remove("open");
+                cardPick2.classList.remove("open");
+                openCards = [];
+            }, 500);
         }
+        
         // counting moves and display on screen
         moves++;
         document.getElementById("moves").innerHTML = moves; 
@@ -100,6 +102,19 @@ deck.addEventListener("click", function(e) {
 
     // function star rating: removing stars
     removeStar();
+
+    // if all cards have matched, display a message with the final score and stop timer
+    if (matchCards.length === 16) {
+        //end of game + stop timer + show pop-up message
+        showModal();
+        //in progress... stop timer and display results on modal
+    }
+});
+
+// restart button
+const restartButton = document.querySelector("#restart");
+restartButton.addEventListener("click", function(re) {
+    document.location.reload();
 });
 
 //start timer
@@ -114,22 +129,33 @@ function startTimer() {
 function removeStar() {
     if (moves == 14) {
         // remove 1 star
-        document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
+        document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
+        // there is some bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     } else if (moves == 19) {
         // remove one more star
-        document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
+        document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
     } else if (moves == 24) {
        // 0 stars
-       document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
+       document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
     }
 }
 
-// if all cards have matched, display a message with the final score and stop timer
-//when matchCard.length = 16 --> end of game + stop timer + show pop-up message
-// in progress....
+// modal, help: https://www.w3schools.com/howto/howto_css_modals.asp
+function showModal() {
+    var modal = document.getElementById("modal");
+    modal.classList.remove("hide");
+    var exit = document.getElementsByClassName("close")[0];
+    var playAgain = document.getElementById("play-again");
 
-// restart button
-const restartButton = document.querySelector("#restart");
-restartButton.addEventListener("click", function(re) {
-    document.location.reload();
-});
+    // when click on x, close the modal
+    exit.onclick = function() {
+        modal.classList.add("hide");
+    }
+
+    // when click on button play again, start new game
+    playAgain.onclick = function() {
+        document.location.reload();
+    }
+
+    // still missing display results on modal!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
