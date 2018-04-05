@@ -55,6 +55,7 @@ let moves = 0;
 let timerNotRunning = true;
 let countClicks = 0;
 let interval;
+let card = document.querySelectorAll(".card");
 
 // set up the event listener for a card
 deck.addEventListener("click", function(e) {
@@ -64,47 +65,57 @@ deck.addEventListener("click", function(e) {
         startTimer();
 
         // display the card's symbol
-    	e.target.classList.add("open");
+    	//e.target.classList.add("open");
 
-        // add the card to a *list* of "open" cards
-        openCards.push(e.target);
-        let cardPick1 = openCards[0];
-        let cardPick2 = openCards[1];
+        // make sure that person doesn't click again on the same card
+        if (!(e.target.classList.contains("open"))) {
+            e.target.classList.add("open");
 
-        //  if the list already has another card, check to see if the two cards match
-        if (openCards.length === 2) {
-            // if the cards match, lock the cards in the open position
-            if (cardPick1.innerHTML === cardPick2.innerHTML) {
-                cardPick1.classList.add("match");
-                cardPick2.classList.add("match");
-                cardPick1.classList.remove("open");
-                cardPick2.classList.remove("open");
-                matchCards.push(cardPick1);
-                matchCards.push(cardPick2);
-                openCards = [];
-            } else {
-            // if the cards do not match, remove the cards from the list and hide the card's symbol
-                setTimeout( function() {
+            // add the card to a *list* of "open" cards
+            openCards.push(e.target);
+            let cardPick1 = openCards[0];
+            let cardPick2 = openCards[1];
+
+            //  if the list already has another card, check to see if the two cards match
+            if (openCards.length === 2) {
+                // if the cards match, lock the cards in the open position
+                if (cardPick1.innerHTML === cardPick2.innerHTML) {
+                    cardPick1.classList.add("match");
+                    cardPick2.classList.add("match");
                     cardPick1.classList.remove("open");
                     cardPick2.classList.remove("open");
+                    matchCards.push(cardPick1);
+                    matchCards.push(cardPick2);
                     openCards = [];
-                }, 500);
+                } else {
+                // if the cards do not match, remove the cards from the list and hide the card's symbol
+                    setTimeout( function() {
+                        cardPick1.classList.remove("open");
+                        cardPick2.classList.remove("open");
+                        openCards = [];
+                    }, 300);
+                }
+                    
+                // counting moves and display on screen
+                moves++;
+                document.getElementById("moves").innerHTML = moves;
+            }
+
+            countClicks++;
+
+            // function star rating: removing stars
+            removeStar();
+
+            // if all cards have matched, display a message with the final score and stop timer
+            if (matchCards.length === 16) {
+                //end of game: stop timer + show pop-up message
+                showModal();
             }
             
-            // counting moves and display on screen
-            moves++;
-            document.getElementById("moves").innerHTML = moves;
-        }
-
-        countClicks++;
-
-        // function star rating: removing stars
-        removeStar();
-
-        // if all cards have matched, display a message with the final score and stop timer
-        if (matchCards.length === 16) {
-            //end of game: stop timer + show pop-up message
-            showModal();
+        } else {
+            alert("Choose another card!");
+            e.target.classList.remove("open");
+            openCards = [];
         }
     }
 });
