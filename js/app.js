@@ -2,24 +2,6 @@
 const cardsList = ["diamond", "heart", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb", "diamond", "heart", "anchor", "bolt", "cube", "leaf", "bicycle", "bomb"];
 
 const deck = document.querySelector(".deck");
-//const card = document.querySelector(".card");
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-// inside deck is 16x <li class="card"><i class="fa fa-xxxxxx"></i></li>
-
-function displayCards() {
-    let cards = shuffle(cardsList);
-    cards.forEach(function(card) {
-        $(deck).append(`<li class="card"><i class="fa fa-${card}"></i></li>`)
-    });
-}
-displayCards();
-console.log(cardsList);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -40,7 +22,7 @@ function shuffle(array) {
 function timer() {
 	var sec = 0;
 	function pad ( val ) { return val > 9 ? val : "0" + val; }
-	setInterval( function(){
+	interval = setInterval( function(){
 		document.getElementById("seconds").innerHTML=pad(++sec%60);
 		document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
 	}, 1000);
@@ -57,13 +39,24 @@ function timer() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+function displayCards() {
+    let cards = shuffle(cardsList);
+    cards.forEach(function(card) {
+        $(deck).append(`<li class="card"><i class="fa fa-${card}"></i></li>`)
+    });
+    // inside deck is 16x <li class="card"><i class="fa fa-xxxxxx"></i></li>
+}
+displayCards();
+console.log(cardsList);
+
 let openCards = [];
 let matchCards = [];
 let moves = 0;
 let timerNotRunning = true;
 let countClicks = 0;
+let interval;
 
-// set up the event listener for a card. If a card is clicked:
+// set up the event listener for a card
 deck.addEventListener("click", function(e) {
     // start timer on first click
     startTimer();
@@ -108,9 +101,8 @@ deck.addEventListener("click", function(e) {
 
     // if all cards have matched, display a message with the final score and stop timer
     if (matchCards.length === 16) {
-        //end of game + stop timer + show pop-up message
+        //end of game: stop timer + show pop-up message
         showModal();
-        //in progress... stop timer and display results on modal
     }
 });
 
@@ -126,6 +118,11 @@ function startTimer() {
         timer();
         timerNotRunning = false;
     }
+}
+
+//stop timer when all cards matched
+function stopTimer() {
+    clearInterval(interval);
 }
 
 // star rating
@@ -149,6 +146,19 @@ function showModal() {
     var exit = document.getElementsByClassName("close")[0];
     var playAgain = document.getElementById("play-again");
 
+    // stop timer
+    stopTimer();
+    
+    //display results on modal
+    var finalMin = document.querySelector("#minutes").innerHTML;
+    var finalSec = document.querySelector("#seconds").innerHTML;
+    var starRating = document.querySelector(".stars").innerHTML;
+
+    document.getElementById("move-end").innerHTML = moves;
+    document.getElementById("star-end").innerHTML = starRating;
+    document.getElementById("min-end").innerHTML = finalMin;
+    document.getElementById("sec-end").innerHTML = finalSec;
+
     // when click on x, close the modal
     exit.onclick = function() {
         modal.classList.add("hide");
@@ -158,6 +168,4 @@ function showModal() {
     playAgain.onclick = function() {
         document.location.reload();
     }
-
-    // still missing display results on modal!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }

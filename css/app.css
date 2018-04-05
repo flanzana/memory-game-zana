@@ -80,14 +80,14 @@ body {
     justify-content: space-between;
 }
 
-.score-panel .stars {
+.stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.stars li {
     list-style: none;
     display: inline-block;
 }
@@ -143,12 +143,17 @@ p {
     margin: 0;
 }
 
+h3 {
+    margin: 40px 0 10px 0;
+}
+
 .hide {
     display: none;
 }
 
 .result.container {
     text-align: center;
+    display: flex;
 }
 
 #play-again {

@@ -48,10 +48,16 @@
             <span class="close">&times;</span>
             <h2>Congratulations, you matched all cards!</h2>
             <div class="result-container">
-                <h3>Your results</h3>
-                <p>Moves: <span id=move-end></span></p>
-                <p>Time: <span id=time-end></span></p>
-                <p>Rating: <span id=star-end></span></p>
+                <h3>Your results:</h3>
+                <div id="end-moves">
+                    Moves: <span id="move-end"></span>
+                </div>
+                <div id="end-time">
+                    Time: <span id="min-end"></span>:<span id="sec-end"></span>
+                </div>
+                <div id="end-stars">
+                    Rating: <ul id="star-end" class="stars"></ul>
+                </div>
             </div>
             <button id="play-again" onclick="playAgain()">Play again</button>
         </div>
