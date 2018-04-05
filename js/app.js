@@ -91,7 +91,7 @@ deck.addEventListener("click", function(e) {
         
         // counting moves and display on screen
         moves++;
-        document.getElementById("moves").innerHTML = moves; 
+        document.getElementById("moves").innerHTML = moves;
     }
 
     countClicks++;
