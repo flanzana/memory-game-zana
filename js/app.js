@@ -60,7 +60,8 @@ function timer() {
 let openCards = [];
 let matchCards = [];
 let moves = 0;
-let timerNotRunning =  true;
+let timerNotRunning = true;
+let countClicks = 0;
 
 // set up the event listener for a card. If a card is clicked:
 deck.addEventListener("click", function(e) {
@@ -77,7 +78,7 @@ deck.addEventListener("click", function(e) {
 
     //  if the list already has another card, check to see if the two cards match
     if (openCards.length === 2) {
-        // if the cards do match, lock the cards in the open position
+        // if the cards match, lock the cards in the open position
         if (cardPick1.innerHTML === cardPick2.innerHTML) {
             cardPick1.classList.add("match");
             cardPick2.classList.add("match");
@@ -99,6 +100,8 @@ deck.addEventListener("click", function(e) {
         moves++;
         document.getElementById("moves").innerHTML = moves; 
     }
+
+    countClicks++;
 
     // function star rating: removing stars
     removeStar();
@@ -127,14 +130,13 @@ function startTimer() {
 
 // star rating
 function removeStar() {
-    if (moves == 14) {
+    if (countClicks == 28) {
         // remove 1 star
         document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
-        // there is some bug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    } else if (moves == 19) {
+    } else if (countClicks == 38) {
         // remove one more star
         document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
-    } else if (moves == 24) {
+    } else if (countClicks == 48) {
        // 0 stars
        document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
     }
