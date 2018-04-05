@@ -130,15 +130,12 @@ function stopTimer() {
 
 // star rating
 function removeStar() {
-    if (countClicks == 28) {
-        // remove 1 star
+    if (countClicks == 30) {
+        // remove 1 star in 15th move
         document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
-    } else if (countClicks == 38) {
-        // remove one more star
+    } else if (countClicks == 40) {
+        // remove one more star in 20th move
         document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
-    } else if (countClicks == 48) {
-       // 0 stars
-       document.querySelector(".fa-star:last-of-type").classList.remove("fa-star");
     }
 }
 
