@@ -64,7 +64,7 @@ restartButton.addEventListener("click", function(re) {
 });
 
 // set up the event listener for a card
-deck.addEventListener("click", clickOnCard);
+deck.addEventListener("click", clickOnCard, false);
 
 function clickOnCard(e) {
     //works only if clicking on cards, but not on space between cards
@@ -103,7 +103,7 @@ function clickOnCard(e) {
 
         // if person clicks on the same card again
         } else {
-            alert("Choose another card!");
+            alert("Sorry, but you cannot select the same card again. Please, choose another card!");
             e.target.classList.remove("open");
             openCards = [];
         }
