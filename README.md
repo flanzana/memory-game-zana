@@ -1,7 +1,11 @@
 # Memory Game Project
 
+## Introduction
+Classic Memory game has been made as a project for Udacity nanodegree Front-End Web Developer.
+
 ## Instructions how to play a game
-- Try to find all 8 pairs of cards by flipping cards.
+- Open the file [index.html](index.html) in your browser (Google Chrome is recommended) and start the game.
+- Try to find all 8 pairs of cards by flipping cards one by one.
 - Time starts to run when the first card is flipped.
 - When a pair matches, it will stay open, otherwise both cards will close.
 - More moves you do, fewer stars you get.
