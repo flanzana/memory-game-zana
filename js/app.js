@@ -57,8 +57,16 @@ let countClicks = 0;
 let interval;
 let card = document.querySelectorAll(".card");
 
+// restart button
+const restartButton = document.querySelector("#restart");
+restartButton.addEventListener("click", function(re) {
+    document.location.reload();
+});
+
 // set up the event listener for a card
-deck.addEventListener("click", function(e) {
+deck.addEventListener("click", clickOnCard);
+
+function clickOnCard(e) {
     //works only if clicking on cards, but not on space between cards
     if (e.target.tagName === "LI") {
         // start timer on first click
@@ -70,17 +78,22 @@ deck.addEventListener("click", function(e) {
 
             // add the card to a *list* of "open" cards
             openCards.push(e.target);
+            let cardPick1 = openCards[0];
+            let cardPick2 = openCards[1];
 
             //  if the list already has another card, check to see if the two cards match
             if (openCards.length === 2) {
-                compareCards();
+                if (cardPick1.innerHTML === cardPick2.innerHTML) {
+                    matchedCards();              
+                } else {
+                    setTimeout(unmatchedCards, 400);
+                }
+
                 // counting moves and display on screen
                 moves++;
                 document.getElementById("moves").innerHTML = moves;
             }
             countClicks++;
-
-            // function star rating: removing stars
             removeStar();
 
             // if all cards have matched, display a message with the final score and stop timer
@@ -95,36 +108,26 @@ deck.addEventListener("click", function(e) {
             openCards = [];
         }
     }
-});
+}
 
-// restart button
-const restartButton = document.querySelector("#restart");
-restartButton.addEventListener("click", function(re) {
-    document.location.reload();
-});
-
-// compare 2 card
-function compareCards() {
+// if the cards match, lock the cards in the open position
+function matchedCards() {
     let cardPick1 = openCards[0];
     let cardPick2 = openCards[1];
+    cardPick1.classList.add("match");
+    cardPick2.classList.add("match");
+    cardPick1.classList.remove("open");
+    cardPick2.classList.remove("open");
+    matchCards.push(cardPick1);
+    matchCards.push(cardPick2);
+    openCards = [];
+}
 
-    // if the cards match, lock the cards in the open position
-    if (cardPick1.innerHTML === cardPick2.innerHTML) {
-        cardPick1.classList.add("match");
-        cardPick2.classList.add("match");
-        cardPick1.classList.remove("open");
-        cardPick2.classList.remove("open");
-        matchCards.push(cardPick1);
-        matchCards.push(cardPick2);
-        openCards = [];
-    } else {
-    // if the cards do not match, remove the cards from the list and hide the card's symbol
-        setTimeout( function() {
-            cardPick1.classList.remove("open");
-            cardPick2.classList.remove("open");
-            openCards = [];
-        }, 300);
-    }
+// if the cards do not match, remove the cards from the list and hide the card's symbol
+function unmatchedCards() {
+    openCards[0].classList.remove("open");
+    openCards[1].classList.remove("open");
+    openCards = [];
 }
 
 //start timer
