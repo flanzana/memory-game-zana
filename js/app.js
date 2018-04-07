@@ -73,8 +73,10 @@ function clickOnCard(e) {
         startTimer();
 
         // make sure that person doesn't click again on the same card
-        if (!(e.target.classList.contains("open"))) {
+        //if (!(e.target.classList.contains("open"))) {  --> pointer-events: none; in CSS is better solution
+        if (openCards.length < 2)  {
             e.target.classList.add("open");
+            e.target.classList.toggle("disabled");
 
             // add the card to a *list* of "open" cards
             openCards.push(e.target);
@@ -100,12 +102,6 @@ function clickOnCard(e) {
             if (matchCards.length === 16) {
                 showModal();
             }
-
-        // if person clicks on the same card again
-        } else {
-            alert("Sorry, but you cannot select the same card again. Please, choose another card!");
-            e.target.classList.remove("open");
-            openCards = [];
         }
     }
 }
@@ -125,8 +121,8 @@ function matchedCards() {
 
 // if the cards do not match, remove the cards from the list and hide the card's symbol
 function unmatchedCards() {
-    openCards[0].classList.remove("open");
-    openCards[1].classList.remove("open");
+    openCards[0].classList.remove("open", "disabled");
+    openCards[1].classList.remove("open", "disabled");
     openCards = [];
 }
 
