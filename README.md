@@ -1,5 +1,11 @@
 # Memory Game Project
 
+## Table of content
+* [Introduction](#introduction)
+* [Instructions how to play a game](#instructions)
+* [How I built a game](#built)
+* [Sources](#sources)
+
 ## Introduction
 Classic Memory game has been made as a project for Udacity nanodegree Front-End Web Developer.
 
@@ -14,3 +20,11 @@ Classic Memory game has been made as a project for Udacity nanodegree Front-End 
 
 ## How I built a game
 The starter code for all Udacity students had some HTML and CSS styling to display a static version of the Memory Game project. I needed to convert this project from a static project to an interactive one. This required modifying the HTML and CSS files, but primarily the JavaScript file.
+
+## Sources
+- starter HTML and CSS code from [Udacity Classroom](https://classroom.udacity.com/me)
+- card's symbols from [Font Awesome](https://fontawesome.com/v4.7.0/icons/)
+- background images from [Subtle Patterns](https://www.toptal.com/designers/subtlepatterns/thumbnail-view/)
+- modal from [w3schools](https://www.w3schools.com/howto/howto_css_modals.asp)
+- shuffle function from [Stack Overflow](http://stackoverflow.com/a/2450976)
+- timer function from [Stack Overflow](https://stackoverflow.com/questions/5517597)
